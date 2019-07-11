@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnScroll.setOnClickListener(this);
         btnRecycler.setOnClickListener(this);
         btnSticky.setOnClickListener(this);
+
+        findViewById(R.id.stickyXp).setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent3 = new Intent(this, StickyActivity.class);
                 startActivity(intent3);
                 break;
+            case R.id.stickyXp:
+                Intent intent4 = new Intent(this, StickyXpActivity.class);
+                startActivity(intent4);
             default:
                 break;
         }

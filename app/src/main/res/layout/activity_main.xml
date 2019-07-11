@@ -28,4 +28,13 @@
         android:layout_margin="10dp"
         android:text="吸附悬停"
         android:textAllCaps="false" />
+
+
+    <Button
+        android:id="@+id/stickyXp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="吸附悬停Xp"
+        android:textAllCaps="false" />
 </LinearLayout>

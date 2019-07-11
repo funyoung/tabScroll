@@ -19,6 +19,7 @@
         <activity android:name=".TabScrollActivity" />
         <activity android:name=".TabRecyclerActivity" />
         <activity android:name=".StickyActivity" />
+        <activity android:name=".StickyXpActivity" />
     </application>
 
 </manifest>
