@@ -1,31 +1,24 @@
-package com.tabscroll;
+package com.tabscroll.activities;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-/**
- * @author tx
- * @date 2018/7/30
- */
-public class TabRecyclerActivity extends AppCompatActivity {
+import com.tabscroll.MyAdapter;
+import com.tabscroll.R;
 
-    private TabLayout tabLayout;
-    private RecyclerView recyclerView;
+public class TabRecyclerActivity extends BaseTabActivity {
+    private RecyclerView contentView;
     private LinearLayoutManager manager;
-    private String[] tabTxt = {"客厅", "卧室", "餐厅", "书房", "阳台", "儿童房"};
     //判读是否是recyclerView主动引起的滑动，true- 是，false- 否，由tablayout引起的
-    private boolean isRecyclerScroll;
+    private boolean isScroll;
     //记录上一次位置，防止在同一内容块里滑动 重复定位到tablayout
-    private int lastPos;
+    private int lastPos = 0;
     //用于recyclerView滑动到指定的位置
     private boolean canScroll;
     private int scrollToPosition;
@@ -33,15 +26,8 @@ public class TabRecyclerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_recycler);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        tabLayout = findViewById(R.id.tablayout);
-
-        //tablayout设置标签
-        for (int i = 0; i < tabTxt.length; i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(tabTxt[i]));
-        }
+        contentView = findViewById(R.id.recyclerView);
 
         //计算内容块所在的高度，全屏高度-状态栏高度-tablayout的高度(这里固定高度50dp)，用于recyclerView的最后一个item view填充高度
         int screenH = getScreenHeight();
@@ -49,41 +35,21 @@ public class TabRecyclerActivity extends AppCompatActivity {
         int tabH = 50 * 3;
         int lastH = screenH - statusBarH - tabH;
         manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(new MyAdapter(this, tabTxt, lastH));
+        contentView.setLayoutManager(manager);
+        contentView.setAdapter(getAdapter(lastH));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //点击标签，使recyclerView滑动，isRecyclerScroll置false
-                int pos = tab.getPosition();
-                isRecyclerScroll = false;
-                moveToPosition(manager, recyclerView, pos);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+        contentView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                //当滑动由recyclerView触发时，isRecyclerScroll 置true
+                //当滑动由scrollview触发时，isScroll 置true
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    isRecyclerScroll = true;
+                    isScroll = true;
                 }
                 return false;
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        contentView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -96,17 +62,29 @@ public class TabRecyclerActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (isRecyclerScroll) {
+                if (isScroll) {
                     //第一个可见的view的位置，即tablayou需定位的位置
                     int position = manager.findFirstVisibleItemPosition();
                     if (lastPos != position) {
-                        tabLayout.setScrollPosition(position, 0, true);
+                        setScrollPosition(position, 0, true);
                     }
                     lastPos = position;
                 }
             }
         });
 
+    }
+
+    @Override
+    protected void selectTab(int pos) {
+        //点击标签，使scrollview滑动，isScroll置false
+        isScroll = false;
+        moveToPosition(manager, contentView, pos);
+    }
+
+    @Override
+    protected int getContentId() {
+        return R.layout.activity_tab_recycler;
     }
 
     public void moveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int position) {
@@ -143,6 +121,4 @@ public class TabRecyclerActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
 }
