@@ -14,7 +14,6 @@ import com.tabscroll.R;
  * @date 2018/7/30
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     private Button btnScroll;
     private Button btnRecycler;
     private Button btnSticky;
@@ -30,7 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRecycler.setOnClickListener(this);
         btnSticky.setOnClickListener(this);
 
-        findViewById(R.id.stickyXp).setOnClickListener(this);
+        findViewById(R.id.stickyXp1).setOnClickListener(this);
+        findViewById(R.id.stickyXp2).setOnClickListener(this);
+        findViewById(R.id.stickyXp3).setOnClickListener(this);
+        findViewById(R.id.motion_keyTrigger).setOnClickListener(this);
     }
 
     @Override
@@ -48,11 +50,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent3 = new Intent(this, StickyActivity.class);
                 startActivity(intent3);
                 break;
-            case R.id.stickyXp:
-                Intent intent4 = new Intent(this, StickyXpActivity.class);
+            case R.id.stickyXp1:
+                startCoordinator(R.layout.motion_09_coordinatorlayout);
+                break;
+            case R.id.stickyXp2:
+                startCoordinator(R.layout.motion_10_coordinatorlayout);
+                break;
+            case R.id.stickyXp3:
+                startCoordinator(R.layout.motion_11_coordinatorlayout);
+                break;
+            case R.id.motion_keyTrigger:
+                Intent intent4 = new Intent(this, KeyTriggerActivity.class);
                 startActivity(intent4);
+                break;
             default:
                 break;
         }
     }
+
+    private void startCoordinator(int layoutId) {
+        StickyXpActivity.start(this, layoutId);
+    }
+
+//    public static void start(Context context, int layoutId) {
+//        Intent intent = new Intent(context, StickyXpActivity.class);
+//        intent.putExtra("layoutId", layoutId);
+//        context.startActivity(intent);
+//    }
 }

@@ -20,6 +20,7 @@
         <activity android:name=".activities.TabRecyclerActivity" />
         <activity android:name=".activities.StickyActivity" />
         <activity android:name=".activities.StickyXpActivity" />
+        <activity android:name=".activities.KeyTriggerActivity" />
     </application>
 
 </manifest>

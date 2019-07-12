@@ -29,12 +29,41 @@
         android:text="吸附悬停"
         android:textAllCaps="false" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/colorAccent" />
 
     <Button
-        android:id="@+id/stickyXp"
+        android:id="@+id/motion_keyTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="吸附悬停Xp"
+        android:text="KeyTrigger"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="CoordinatorLayout" />
+    <Button
+        android:id="@+id/stickyXp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textAllCaps="false" />
+    <Button
+        android:id="@+id/stickyXp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:textAllCaps="false" />
+    <Button
+        android:id="@+id/stickyXp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
         android:textAllCaps="false" />
 </LinearLayout>
