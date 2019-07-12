@@ -3,13 +3,11 @@ package com.tabscroll.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.view.MotionEvent;
-import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
 
-import com.tabscroll.MyAdapter;
 import com.tabscroll.R;
 
 public class TabRecyclerActivity extends BaseTabActivity {
