@@ -25,7 +25,7 @@ public class TabRecyclerActivity extends BaseTabActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        contentView = findViewById(R.id.recyclerView);
+        contentView = findViewById(getRecyclerViewId());
 
         //计算内容块所在的高度，全屏高度-状态栏高度-tablayout的高度(这里固定高度50dp)，用于recyclerView的最后一个item view填充高度
         int screenH = getScreenHeight();
@@ -71,6 +71,10 @@ public class TabRecyclerActivity extends BaseTabActivity {
             }
         });
 
+    }
+
+    protected int getRecyclerViewId() {
+        return R.id.recyclerView;
     }
 
     @Override

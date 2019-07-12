@@ -28,7 +28,9 @@
 
         <include layout="@layout/motion_19_coordination_header" />
 
-        <include layout="@layout/content_scrolling" />
+        <include layout="@layout/including_recycler_view"
+            android:id="@+id/scrollable"
+            />
 
     </android.support.constraint.motion.MotionLayout>
 </FrameLayout>

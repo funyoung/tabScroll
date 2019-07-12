@@ -23,9 +23,16 @@ public abstract class BaseTabActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentId());
-        tabLayout = findViewById(R.id.tablayout);
-        fillTab(tabLayout);
+        setupTabLayout();
+    }
 
+    private void setupTabLayout() {
+        tabLayout = findViewById(R.id.tablayout);
+        if (null == tabLayout) {
+            return;
+        }
+
+        fillTab(tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -49,7 +56,11 @@ public abstract class BaseTabActivity extends AppCompatActivity {
     protected abstract void selectTab(int pos);
 
     protected final void fillTab(TabLayout tabLayout) {
-        //tablayout设置标签
+        if (null == tabLayout) {
+            return;
+        }
+
+        // tablayout设置标签
         for (int i = 0; i < tabTxt.length; i++) {
             tabLayout.addTab(tabLayout.newTab().setText(tabTxt[i]));
         }
@@ -66,7 +77,9 @@ public abstract class BaseTabActivity extends AppCompatActivity {
     }
 
     protected final void setTabLayoutY(int translation) {
-        tabLayout.setTranslationY(translation);
+        if (null != tabLayout) {
+            tabLayout.setTranslationY(translation);
+        }
     }
 
     protected final int getMaxTabIndex() {
@@ -74,16 +87,23 @@ public abstract class BaseTabActivity extends AppCompatActivity {
     }
 
     protected final void setScrollPosition(int newPos, int positionOffset, boolean updateSelectedText) {
-        tabLayout.setScrollPosition(newPos, positionOffset, updateSelectedText);
+        if (null != tabLayout) {
+            tabLayout.setScrollPosition(newPos, positionOffset, updateSelectedText);
+        }
     }
 
     protected int getTabHeight() {
-        return tabLayout.getHeight();
+        if (null != tabLayout) {
+            return tabLayout.getHeight();
+        }
+        return 0;
     }
 
     protected void showTabLayout(int top) {
-        tabLayout.setTranslationY(top);
-        tabLayout.setVisibility(View.VISIBLE);
+        if (null != tabLayout) {
+            tabLayout.setTranslationY(top);
+            tabLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     protected final RecyclerView.Adapter getAdapter(int lastH) {
